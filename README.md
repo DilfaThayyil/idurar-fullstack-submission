@@ -1,7 +1,3 @@
-
----
-
-````markdown
 # Idurar Fullstack Submission
 
 > A full-stack application setup integrating an ERP/CRM system with a modern Next.js CRUD interface, a Nest.js/Python AI service, Dockerized deployments, and GitHub Actions CI/CD pipeline.
