@@ -26,17 +26,17 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        working-directory: ./nextjs_crud_app
+        working-directory: ./idurar-nextjs-crud
         run: npm ci
 
       - name: Lint
-        working-directory: ./nextjs_crud_app
+        working-directory: ./idurar-nextjs-crud
         run: npm run lint
 
       - name: Build
-        working-directory: ./nextjs_crud_app
+        working-directory: ./idurar-nextjs-crud
         run: npm run build
 
       - name: Test
-        working-directory: ./nextjs_crud_app
+        working-directory: ./idurar-nextjs-crud
         run: npm test
