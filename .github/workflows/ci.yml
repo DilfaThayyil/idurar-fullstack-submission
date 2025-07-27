@@ -1,0 +1,42 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      mongo:
+        image: mongo
+        ports:
+          - 27017:27017
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        working-directory: ./nextjs_crud_app
+        run: npm ci
+
+      - name: Lint
+        working-directory: ./nextjs_crud_app
+        run: npm run lint
+
+      - name: Build
+        working-directory: ./nextjs_crud_app
+        run: npm run build
+
+      - name: Test
+        working-directory: ./nextjs_crud_app
+        run: npm test
