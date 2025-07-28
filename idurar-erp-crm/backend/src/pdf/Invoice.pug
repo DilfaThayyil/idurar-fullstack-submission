@@ -1,0 +1,150 @@
+doctype html
+html
+  head
+    link(rel="shortcut icon" type="image/png" href="/images/icons/favicon.png")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    style.
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 13px;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        background-color: #f7f9fb;
+      }
+      .container {
+        width: 90%;
+        margin: 40px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #52008c;
+        padding-bottom: 20px;
+      }
+      .header img {
+        max-height: 60px;
+      }
+      .header .company-info {
+        text-align: right;
+      }
+      .invoice-title {
+        font-size: 28px;
+        color: #52008c;
+        margin-top: 30px;
+        margin-bottom: 10px;
+      }
+      .details {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+      }
+      .details .left, .details .right {
+        width: 48%;
+      }
+      .details p {
+        margin: 5px 0;
+      }
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+      }
+      .table th {
+        background-color: #f0efff;
+        color: #52008c;
+        text-align: left;
+        padding: 10px;
+        font-weight: bold;
+        border-bottom: 2px solid #dcdcec;
+      }
+      .table td {
+        padding: 10px;
+        border-bottom: 1px solid #eaeaea;
+      }
+      .table .desc {
+        color: #666;
+        font-size: 12px;
+      }
+      .table .itemNote {
+        color: #888;
+        font-size: 12px
+      }
+      .totals {
+        text-align: right;
+        margin-top: 10px;
+      }
+      .totals p {
+        margin: 4px 0;
+      }
+      .note {
+        background-color: #f9f9f9;
+        padding: 15px;
+        border-left: 4px solid #52008c;
+        margin-top: 30px;
+        font-size: 13px;
+      }
+      footer {
+        text-align: center;
+        font-size: 12px;
+        color: #999;
+        margin-top: 40px;
+      }
+  body
+    .container
+      .header
+        img(src=settings.public_server_file+settings.company_logo)
+        .company-info
+          p.strong #{settings.company_name}
+          p #{settings.company_address}
+          p #{settings.company_reg_number}
+
+      h1.invoice-title #{translate('invoice')}
+
+      .details
+        .left
+          p.strong #{translate('Date')}: #{moment(model.date).format(dateFormat)}
+          p.strong #{translate('Expired Date')}: #{moment(model.expiredDate).format(dateFormat)}
+          p.strong #{translate('Number')}: # #{model.number}/#{model.year || ""}
+        .right
+          p.strong #{translate('Client')}:
+          p #{model.client.name}
+          p #{model.client.address}
+          p #{model.client.phone}
+          p #{model.client.email}
+
+      table.table
+        thead
+          tr
+            th #{translate('item')}
+            th #{translate('Quantity')}
+            th #{translate('PRICE')}
+            th #{translate('TOTAL')}
+        tbody
+          each item in model.items
+            tr
+              td
+                | #{item.itemName}
+                if item.description
+                  br
+                  span.desc #{item.description}
+                if item.itemNote
+                  br
+                  span.itemNote Note: #{item.itemNote}
+              td #{item.quantity}
+              td #{moneyFormatter({amount:item.price})}
+              td #{moneyFormatter({amount:item.total})}
+
+
+      if model.notes
+        .note
+          p.strong #{translate('Note')}:
+          p #{model.notes}
+
+      footer
+        | Thank you for your business!
