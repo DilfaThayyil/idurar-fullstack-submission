@@ -1,5 +1,5 @@
-import { User } from '@/types/auth';
-import { create } from 'zustand';
+import { User } from "@/types/auth";
+import { create } from "zustand";
 
 type UserStore = {
   user: User;
@@ -9,9 +9,9 @@ type UserStore = {
 
 export const useUserStore = create<UserStore>((set) => ({
   user: {
-    email: '',
-    name: ''
+    email: "",
+    name: ""
   },
   setUser: (user) => set({ user }),
-  clearUser: () => set({ user: {email:'',name:''}}),
+  clearUser: () => set({ user: { email: "", name: "" } })
 }));

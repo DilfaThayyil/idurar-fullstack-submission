@@ -1,32 +1,32 @@
-'use client';
-import React, { useState, Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import LoginForm from '@/components/auth/LoginForm';
-import { LoginCredentials } from '@/types/auth';
-import { loginUser } from '@/services/authService';
-import toast from 'react-hot-toast';
-import { useUserStore } from '@/store/userStore';
+"use client";
+import React, { useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import LoginForm from "@/components/auth/LoginForm";
+import { LoginCredentials } from "@/types/auth";
+import { loginUser } from "@/services/authService";
+import toast from "react-hot-toast";
+import { useUserStore } from "@/store/userStore";
 
 function LoginWrapper() {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState<string>("");
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const successMessage = searchParams.get('message');
+  const successMessage = searchParams.get("message");
 
   const handleLogin = async (credentials: LoginCredentials) => {
     setLoading(true);
-    setError('');
+    setError("");
     try {
       const res = await loginUser(credentials);
       if (res.user) {
         useUserStore.getState().setUser(res.user);
       }
-      toast.success('Login successful!');
-      router.push('/dashboard');
+      toast.success("Login successful!");
+      router.push("/dashboard");
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unexpected error');
+      setError(err instanceof Error ? err.message : "Unexpected error");
     } finally {
       setLoading(false);
     }
