@@ -10,7 +10,7 @@
 idurar-fullstack-submission/
 ├── idurar-erp-crm/             
 ├── idurar-nextjs-crud/          
-    ├── integration-api/    
+├── integration-api/    
 ├── .github/
 │   └── workflows/
 │       └── ci.yml          
