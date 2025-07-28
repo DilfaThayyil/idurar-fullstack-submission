@@ -1,0 +1,164 @@
+{
+	"info": {
+		"_postman_id": "402cb0f1-420b-4872-a026-321e6a0ac45e",
+		"name": "idurar-nextjs-crud",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39446907"
+	},
+	"item": [
+		{
+			"name": "paginated list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/projects?page=1&limit=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"projects"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						}
+					]
+				},
+				"description": "### API Endpoint: Retrieve Projects\n\n**Method:** GET  \n**URL:** `http://localhost:3001/api/projects`\n\n#### Purpose\n\nThis endpoint is designed to retrieve a paginated list of projects from the server. It allows clients to specify the page number and the number of projects to return per page, facilitating efficient data retrieval and management.\n\n#### Request Parameters\n\n- **Query Parameters:**\n    \n    - `page` (integer): Specifies the page number of the results to be returned. For example, `page=1` will return the first page of results.\n        \n    - `limit` (integer): Indicates the maximum number of project records to return per page. For instance, `limit=5` will return up to five projects.\n        \n\n#### Response Structure\n\nThe response will be a JSON object containing the following properties:\n\n- `total` (integer): The total number of projects available.\n    \n- `page` (integer): The current page number of the results returned.\n    \n- `limit` (integer): The number of projects returned per page.\n    \n- `projects` (array): An array of project objects, each containing details about a project, such as:\n    \n    - `id` (string): The unique identifier for the project.\n        \n    - `name` (string): The name of the project.\n        \n    - `description` (string): A brief description of the project.\n        \n    - `createdAt` (string): The date and time when the project was created.\n        \n    - `updatedAt` (string): The date and time when the project was last updated.\n        \n\n#### Example Response\n\n``` json\n{\n  \"total\": 100,\n  \"page\": 1,\n  \"limit\": 5,\n  \"projects\": [\n    {\n      \"id\": \"1\",\n      \"name\": \"Project A\",\n      \"description\": \"Description of Project A\",\n      \"createdAt\": \"2023-01-01T00:00:00Z\",\n      \"updatedAt\": \"2023-01-10T00:00:00Z\"\n    },\n    {\n      \"id\": \"2\",\n      \"name\": \"Project B\",\n      \"description\": \"Description of Project B\",\n      \"createdAt\": \"2023-01-05T00:00:00Z\",\n      \"updatedAt\": \"2023-01-15T00:00:00Z\"\n    }\n    // Additional project objects...\n  ]\n}\n\n ```\n\nThis structure ensures that clients can easily navigate through the list of projects while understanding the total available projects and the current pagination state."
+			},
+			"response": []
+		},
+		{
+			"name": "create project",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"projectId\": \"PROJ002\",\r\n  \"name\": \"New Project2\",\r\n  \"description\": \"Optional\",\r\n  \"status\": \"pending\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/projects",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"projects"
+					]
+				},
+				"description": "## Add Project\n\nThis endpoint allows users to create a new project by submitting project details.\n\n### Request\n\n- **Method:** POST\n    \n- **URL:** `http://localhost:3001/api/projects`\n    \n\n#### Request Body\n\nThe request body must be in JSON format and include the following parameters:\n\n- **projectId** (string): A unique identifier for the project. This is a required field.\n    \n- **name** (string): The name of the project. This is a required field.\n    \n- **description** (string, optional): A brief description of the project. This field is optional.\n    \n- **status** (string): The current status of the project. This is a required field and can be set to values such as \"pending\", \"active\", or \"completed\".\n    \n\nExample of a valid request body:\n\n``` json\n{\n  \"projectId\": \"PROJ002\",\n  \"name\": \"New Project2\",\n  \"description\": \"Optional\",\n  \"status\": \"pending\"\n}\n\n ```\n\n### Response\n\nUpon successful creation of a project, the API will respond with a confirmation message and the details of the newly created project. The structure of the response typically includes:\n\n- **success** (boolean): Indicates whether the request was successful.\n    \n- **message** (string): A message providing additional information about the result of the request.\n    \n- **project** (object): An object containing the details of the created project, including the same parameters sent in the request.\n    \n\nExample of a successful response:\n\n``` json\n{\n  \"success\": true,\n  \"message\": \"Project created successfully.\",\n  \"project\": {\n    \"projectId\": \"PROJ002\",\n    \"name\": \"New Project2\",\n    \"description\": \"Optional\",\n    \"status\": \"pending\"\n  }\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "retrieve project",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/projects/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"projects",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "6884bafd3b2548bcddd4ab0d"
+						}
+					]
+				},
+				"description": "## Get Project by ID\n\nThis endpoint retrieves the details of a specific project identified by its unique ID.\n\n### Request Parameters\n\n- `id` (path parameter): The unique identifier of the project you wish to retrieve. This should be a valid project ID that exists in the database.\n    \n\n### Response Structure\n\nOn a successful request, the response will contain the following fields:\n\n- `id`: The unique identifier of the project.\n    \n- `name`: The name of the project.\n    \n- `description`: A brief description of the project.\n    \n- `created_at`: The timestamp when the project was created.\n    \n- `updated_at`: The timestamp when the project was last updated.\n    \n\n### Example Response\n\n``` json\n{\n  \"id\": \"12345\",\n  \"name\": \"Project Name\",\n  \"description\": \"Project Description\",\n  \"created_at\": \"2023-01-01T00:00:00Z\",\n  \"updated_at\": \"2023-01-10T00:00:00Z\"\n}\n\n ```\n\nEnsure to replace `:id` in the URL with the actual project ID to retrieve the desired project details."
+			},
+			"response": []
+		},
+		{
+			"name": "update project",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Updated Project\",\r\n  \"description\": \"Updated description\",\r\n  \"status\": \"completed\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/projects/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"projects",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "6884bafd3b2548bcddd4ab0d"
+						}
+					]
+				},
+				"description": "### Update Project\n\nThis endpoint allows you to update an existing project identified by its unique ID. You can modify the project's name, description, and status through this request.\n\n#### Request Format\n\n- **Method**: PUT\n    \n- **URL**: `http://localhost:3001/api/projects/:id`\n    \n- **Request Body** (JSON):\n    \n    - `name` (string): The new name of the project.\n        \n    - `description` (string): A brief description of the project.\n        \n    - `status` (string): The current status of the project (e.g., \"completed\", \"in-progress\", etc.).\n        \n\n#### Example Request Body\n\n``` json\n{\n  \"name\": \"Updated Project\",\n  \"description\": \"Updated description\",\n  \"status\": \"completed\"\n}\n\n ```\n\n#### Expected Response Format\n\nOn success, the API will return a JSON object containing the updated project details. The response will typically include the following fields:\n\n- `id`: The unique identifier of the project.\n    \n- `name`: The updated name of the project.\n    \n- `description`: The updated description of the project.\n    \n- `status`: The updated status of the project.\n    \n- `updatedAt`: Timestamp indicating when the project was last updated.\n    \n\nEnsure that the project ID in the URL corresponds to an existing project to avoid errors."
+			},
+			"response": []
+		},
+		{
+			"name": "delete project",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/projects/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"projects",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "6884c2df3b2548bcddd4ab25"
+						}
+					]
+				},
+				"description": "\n### DELETE /api/projects/:id\n\nThis endpoint is used to delete a specific project identified by its unique `id`. By sending a DELETE request to this endpoint, the client can remove a project from the system.\n\n#### Path Parameters\n\n- `id` (string, required): The unique identifier of the project that you wish to delete. This should be replaced with the actual project ID in the URL.\n\n#### Response Structure\n\nUpon a successful deletion, the server will respond with a status code indicating the outcome of the request. The typical responses include:\n\n- **204 No Content**: Indicates that the project was successfully deleted and there is no additional content to return.\n- **404 Not Found**: Indicates that the project with the specified ID does not exist.\n\nEnsure that the client handles these responses appropriately to confirm the deletion status or handle errors.\n"
+			},
+			"response": []
+		}
+	]
+}
