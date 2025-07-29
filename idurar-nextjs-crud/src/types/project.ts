@@ -34,7 +34,7 @@ export interface ApiResponse<T> {
 }
 
 export type ContextType = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
