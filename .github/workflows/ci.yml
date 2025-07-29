@@ -37,7 +37,8 @@ jobs:
         working-directory: ./idurar-nextjs-crud
         run: npm run build
         env:
-        MONGO_URI: ${{ secrets.MONGO_URI }}
+          # Corrected indentation: MONGO_URI is now a child of env
+          MONGO_URI: ${{ secrets.MONGO_URI }}
 
       - name: Test
         working-directory: ./idurar-nextjs-crud
