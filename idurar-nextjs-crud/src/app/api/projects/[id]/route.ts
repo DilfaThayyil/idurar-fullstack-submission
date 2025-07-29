@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest, context: ContextType) {
   try {
     await connectDb();
-    const project = await Project.findById(context.params.id);
+    const project = await Project.findById((await context.params).id);
 
     if (!project)
       return NextResponse.json({ success: false, error: "Project not found" }, { status: 404 });
@@ -22,7 +22,7 @@ export async function PUT(req: NextRequest, context: ContextType) {
   try {
     await connectDb();
     const body = await req.json();
-    const updated = await Project.findByIdAndUpdate(context.params.id, body, {
+    const updated = await Project.findByIdAndUpdate((await context.params).id, body, {
       new: true,
       runValidators: true
     });
@@ -40,7 +40,7 @@ export async function PUT(req: NextRequest, context: ContextType) {
 export async function DELETE(_req: NextRequest, context: ContextType) {
   try {
     await connectDb();
-    const deleted = await Project.findByIdAndDelete(context.params.id);
+    const deleted = await Project.findByIdAndDelete((await context.params).id);
 
     if (!deleted) {
       return NextResponse.json({ success: false, error: "Project not found" }, { status: 404 });
